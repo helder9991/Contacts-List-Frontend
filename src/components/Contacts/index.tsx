@@ -20,6 +20,19 @@ interface IContacts {
     ]
 }
 
+interface IUpdateContact {
+  id: number;
+  name: string;
+  yearsOld: number;
+  phoneNumbers: Array<
+    {
+      id: number,
+      idContact: number,
+      number: string
+    }
+  >
+}
+
 const Contacts = () => {
   const phoneInputRef = useRef<HTMLInputElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -57,8 +70,24 @@ const Contacts = () => {
     if (nameInputRef?.current) nameInputRef.current.value = '';
   };
 
+  const handleEdit = async (data: IUpdateContact) => {
+    const response = await api.put(`/contact/${data.id}`, data);
+    if (response.status === 200) alert('Contato alterado com sucesso');
+    await handleSearch();
+  };
+
+  const handleDelete = async (id: number) => {
+    const confirmDelete = window.confirm('Deseja realmente apagar este contato?');
+
+    if (confirmDelete) {
+      await api.delete(`/contact/${id}`);
+      await handleSearch();
+    }
+  };
+
   return (
     <Container>
+
       <Title>Lista de contatos</Title>
       <Content>
         <Filters>
@@ -105,7 +134,12 @@ const Contacts = () => {
             selectedRadio === 'name' && (
               listContacts.length > 0 ? (
                 listContacts.map((contactValue) => (
-                  <ContactInfo key={contactValue.id} contact={contactValue} />
+                  <ContactInfo
+                    key={contactValue.id}
+                    contact={contactValue}
+                    handleDelete={handleDelete}
+                    handleEdit={handleEdit}
+                  />
                 ))
               ) : (
                 <Error>Nenhum contato encontrado</Error>
@@ -115,7 +149,12 @@ const Contacts = () => {
           {
             selectedRadio === 'phone' && (
               contact ? (
-                <ContactInfo key={contact.id} contact={contact} />
+                <ContactInfo
+                  key={contact.id}
+                  contact={contact}
+                  handleDelete={handleDelete}
+                  handleEdit={handleEdit}
+                />
               ) : (
                 <Error>Nenhum contato encontrado</Error>
               ))

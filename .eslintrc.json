@@ -33,6 +33,9 @@
         "react/function-component-definition": "off",
         "import/no-unresolved": "off",
         "no-param-reassign": "off",
-        "consistent-return": "off"
+        "consistent-return": "off",
+        "no-alert": "off",
+        "no-unused-vars":"warn",
+        "curly":"off"
     }
 }

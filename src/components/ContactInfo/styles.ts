@@ -1,12 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    border-radius: 6px;
-    font-size: 16px;
-    background-color: #F9FDFF;
-    margin:  0 16px 16px;
+    display: flex;
+    width: 100%;
     overflow-x: auto;
-
 `;
 
 export const FirstRow = styled.div`
@@ -40,4 +37,22 @@ export const SecondRow = styled.div`
         font-size: 14px;
         color: white;
     }
+`;
+
+export const Actions = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 50px;
+    height: 90px;
+`;
+
+export const Content = styled.div`
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #F9FDFF;
+    margin:  0 16px 16px;
+    width: 100%;
+    box-shadow: 7px 7px 8px -6px rgba(0,0,0,0.67);
 `;

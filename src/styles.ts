@@ -7,6 +7,7 @@ export const Container = styled.div`
     background-color: #E0DCDC;
     width: 100vw;
     height: 100vh;
+    position: relative;
     
     @media(max-width: 1000px) {
         flex-direction: column;
